@@ -1,16 +1,35 @@
+import { useState } from 'react';
 import './Form.scss';
+import type { FormProps } from '../../models/form-props.type';
 
-export const Form = () => {
-  return (
-    <div className="form-wrapper">
-        <form action="#">
-            <label>
-                <input type="text" />
-                <button></button>
-            </label>
-        </form>
-    </div>
-  )
-}
+export const Form = (props: FormProps, ) => {
+	const [task, setTask] = useState<string>('');
 
+	const formSubmit = () => {
+		if (task) {
+			props.createNewToDo(task);
+			setTask('');
+		}
+	};
 
+	// const changeText = (event: ChangeEvent<HTMLInputElement>) => {
+	// 	setTask(event.target.value);
+	// };
+
+	return (
+		<div className='form-wrapper'>
+			<form
+				action='#'
+				onSubmit={formSubmit}>
+				<label>
+					<input
+						type='text'
+						onChange={(event) => setTask(event.target.value)}
+						value={task}
+					/>
+					<button></button>
+				</label>
+			</form>
+		</div>
+	);
+};
