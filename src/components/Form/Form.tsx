@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './Form.scss';
 import type { FormProps } from '../../models/form-props.type';
 
-export const Form = (props: FormProps, ) => {
+export const Form = (props: FormProps) => {
 	const [task, setTask] = useState<string>('');
 
 	const formSubmit = () => {
@@ -25,6 +25,11 @@ export const Form = (props: FormProps, ) => {
 					<input
 						type='text'
 						onChange={(event) => setTask(event.target.value)}
+						onKeyDown={(event) => {
+							if (event.key === 'Enter') {
+								formSubmit();
+							}
+						}}
 						value={task}
 					/>
 					<button></button>

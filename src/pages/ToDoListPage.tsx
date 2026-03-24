@@ -3,6 +3,7 @@ import { Form } from '../components/Form/Form';
 import { Header } from '../components/Header/Header';
 import { ToDoList } from '../components/ToDoList/ToDoList';
 import type { ToDo } from '../models/todo-item.interface';
+import { toast } from 'react-toastify';
 
 export const ToDoListPage = () => {
 	const [todos, setTodos] = useState<ToDo[]>([]);
@@ -14,6 +15,7 @@ export const ToDoListPage = () => {
 			isDone: false,
 		};
 		setTodos([...todos, newToDo]);
+		toast.success(`New task added: "${text}"`, { autoClose: 500 });
 	};
 
 	const updateToDo = (toDoItem: ToDo): void => {
@@ -24,10 +26,12 @@ export const ToDoListPage = () => {
 			return item;
 		});
 		setTodos(newTodos);
+		toast.info(`Task updated: "${toDoItem.text}"`, { autoClose: 500 });
 	};
 	const deleteToDo = (toDoItem: ToDo): void => {
-		const newTodos = todos.filter(item => item.id !== toDoItem.id)
+		const newTodos = todos.filter((item) => item.id !== toDoItem.id);
 		setTodos(newTodos);
+		toast.error(`Task deleted: "${toDoItem.text}"`, { autoClose: 500 });
 	};
 
 	return (
