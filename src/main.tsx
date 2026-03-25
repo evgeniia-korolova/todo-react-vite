@@ -14,6 +14,7 @@ import { HomePage } from './pages/HomePage/HomePage';
 import { NotFound } from './pages/NotFound/NotFound';
 import { ItemDetails } from './pages/ItemDetails/ItemDetails';
 import { MainLayout } from './layouts/MainLayout';
+import { HelmetProvider } from 'react-helmet-async';
 
 const todos = [
 	{
@@ -38,40 +39,42 @@ const todos = [
 	},
 ];
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+	[
+		{
+			path: '/',
+			element: <MainLayout />,
+			errorElement: <NotFound />,
+			children: [
+				{
+					path: '/',
+					element: <HomePage todos={todos} />,
+				},
+				{
+					path: '/todos',
+					element: <ToDoListPage />,
+				},
+				{
+					path: '/list/:id',
+					element: <ItemDetails todos={todos} />,
+				},
+			],
+		},
+		{
+			path: '*',
+			element: <NotFound />,
+		},
+	],
 	{
-		path: '/',
-		element: <MainLayout />,
-		errorElement: <NotFound />,
-		children: [
-			{
-				path: '/',
-				element: <HomePage todos={todos} />,
-			},
-			{
-				path: '/todos',
-				element: <ToDoListPage />,
-			},
-			{
-				path: '/list/:id',
-				element: <ItemDetails todos={todos} />,
-			},
-		],
+		basename: import.meta.env.DEV ? '/' : '/todo-react-vite',
 	},
-	{
-		path: '*',
-		element: <NotFound/>
-	}
-],
-{
-	basename: import.meta.env.DEV ? "/" : "/todo-react-vite",
-}
-// {basename: '/todo-react-vite/'}
 );
 
 createRoot(document.getElementById('root')!).render(
 	<StrictMode>
-		<RouterProvider router={router} />
-		<ToastContainer position='bottom-right' />
+		<HelmetProvider>
+			<RouterProvider router={router} />
+			<ToastContainer position='bottom-right' />
+		</HelmetProvider>
 	</StrictMode>,
 );
