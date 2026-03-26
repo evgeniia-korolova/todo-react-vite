@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
+import React  from 'react';
 import './Form.scss';
-import type { FormProps } from '../../models/form-props.type';
+import { useDispatch, useSelector } from 'react-redux';
+import type { RootState } from '../../store';
+import { createAction } from '../../feature/todoList';
+import { clearValue, setValue } from '../../feature/formSlice';
 
-export const Form = (props: FormProps) => {
-	const [task, setTask] = useState<string>('');
+
+export const Form = () => {
+
+	const dispatch = useDispatch();
+	const task = useSelector((state: RootState) => state.form.value);
+
+
 
 	const formSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault()
 		if (task) {
-			props.createNewToDo(task);
-			setTask('');
+			dispatch(createAction(task)); 
+      dispatch(clearValue());
 		}
 	};
-
-	// const changeText = (event: ChangeEvent<HTMLInputElement>) => {
-	// 	setTask(event.target.value);
-	// };
 
 	return (
 		<div className='form-wrapper'>
@@ -25,7 +29,7 @@ export const Form = (props: FormProps) => {
 				<label>
 					<input
 						type='text'
-						onChange={(event) => setTask(event.target.value)}
+						onChange={(event) => dispatch(setValue(event.target.value))}
 						onKeyDown={(event) => {
 							if (event.key === 'Enter') {
 								formSubmit(event);
