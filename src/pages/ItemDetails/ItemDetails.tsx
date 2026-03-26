@@ -1,18 +1,19 @@
 import { useEffect, useEffectEvent, useState } from 'react';
 import type { ToDo } from '../../models/todo-item.interface';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../../store';
 
-interface ComponentProps {
-	todos: ToDo[];
-}
 
-export const ItemDetails = ({ todos }: ComponentProps) => {
+
+export const ItemDetails = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
+	const todoList = useSelector((state: RootState) => state.todoList.todos)
 	const [todo, setTodo] = useState<ToDo>();
 
 	const checkTodo = useEffectEvent(() => {
-		const targetTodo = todos.find((item) => String(item.id) === id);
+		const targetTodo = todoList.find((item) => String(item.id) === id);
 		if (targetTodo) {
 			setTodo(targetTodo);
 		} else {

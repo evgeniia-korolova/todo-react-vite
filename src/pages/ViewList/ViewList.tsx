@@ -1,15 +1,17 @@
+
+import { useSelector } from 'react-redux';
 import { ListItem } from '../../components/ListItem/ListItem';
 import type { ToDo } from '../../models/todo-item.interface';
-import classes from './HomePage.module.scss';
+import classes from './ViewList.module.scss';
+import type { RootState } from '../../store';
 
-interface ComponentProps {
-	todos: ToDo[];
-}
 
-export const HomePage = ({ todos }: ComponentProps) => {
+
+export const ViewList = () => {
+	const todoList = useSelector((state: RootState) => state.todoList.todos)
 	return (
 		<div className={classes.container}>
-			{todos.map((item: ToDo) => {
+			{todoList.map((item: ToDo) => {
 				return (
 					<ListItem
 						key={item.id}
@@ -17,6 +19,7 @@ export const HomePage = ({ todos }: ComponentProps) => {
 					/>
 				);
 			})}
+
 		</div>
 	);
 };

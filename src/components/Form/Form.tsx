@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './Form.scss';
 import type { FormProps } from '../../models/form-props.type';
 
 export const Form = (props: FormProps) => {
 	const [task, setTask] = useState<string>('');
 
-	const formSubmit = () => {
+	const formSubmit = (event: React.SyntheticEvent) => {
+		event.preventDefault()
 		if (task) {
 			props.createNewToDo(task);
 			setTask('');
@@ -27,7 +28,7 @@ export const Form = (props: FormProps) => {
 						onChange={(event) => setTask(event.target.value)}
 						onKeyDown={(event) => {
 							if (event.key === 'Enter') {
-								formSubmit();
+								formSubmit(event);
 							}
 						}}
 						value={task}
