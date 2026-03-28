@@ -6,14 +6,4 @@ export const ListItemLink = styled(Link)<{$isDone: boolean}>`
 	font-size: 1.25rem;
 	font-weight: 600;
   color: ${({ $isDone }) => ($isDone ? "green" : "red")};
-
-
-
-	// &.done {
-	// 	color: green;
-	// }
-
-	// &.notDone {
-	// 	color: red;
-	// }
 `;

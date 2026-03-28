@@ -17,7 +17,7 @@ export const todosSlice = createSlice({
 	reducers: {
 		createAction: (state, action: PayloadAction<string>) => {
 			const newToDo: ToDo = {
-				id: Number(Date.now()),
+				id: crypto.randomUUID(),
 				text: action.payload,
 				isDone: false,
 			};

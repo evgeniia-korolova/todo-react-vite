@@ -8,7 +8,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { router } from './router';
 import { store } from './store';
 import { Provider } from 'react-redux';
-import { GlobalStyle } from './styles/GlobalStyles';
 import { Normalize } from 'styled-normalize';
 
 
@@ -18,7 +17,7 @@ createRoot(document.getElementById('root')!).render(
 		<Provider store={store}>
 			<HelmetProvider>
 				<Normalize />
-				<GlobalStyle/>
+
 				<RouterProvider router={router} />
 				<ToastContainer position='bottom-right' />
 			</HelmetProvider>

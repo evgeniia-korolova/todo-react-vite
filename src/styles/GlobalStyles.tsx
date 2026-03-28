@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
+
 export const GlobalStyle = createGlobalStyle`
 
 
@@ -8,7 +9,8 @@ export const GlobalStyle = createGlobalStyle`
 }
 
 body {
-	background-color: #edf0f1;
+	transition: all 0.2s;
+	background-color: ${({theme}) => theme.colors.backgroundSecondary};
 	padding: 50px 0 0 0;
 	font-family: 'Roboto', sans-serif;
 	font-size: 16px;

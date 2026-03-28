@@ -1,14 +1,22 @@
-import { Outlet } from "react-router-dom"
-import { Header } from "../components/Header/Header"
-import { Fonts } from "../components/Fonts"
-
+import { Outlet } from 'react-router-dom';
+import { Header } from '../components/Header/Header';
+import { Fonts } from '../components/Fonts';
+import { ThemeProvider } from 'styled-components';
+import { GlobalStyle } from '../styles/GlobalStyles';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../store';
 
 export const MainLayout = () => {
-  return (
-    <>
-    <Fonts />
-    <Header />
-    <Outlet />
-    </>
-  )
-}
+
+  const currentTheme = useSelector((state: RootState) => state.themeList.theme)
+	return (
+		<>
+			<ThemeProvider theme={currentTheme}>
+				<GlobalStyle />
+				<Fonts />
+				<Header />
+				<Outlet />
+			</ThemeProvider>
+		</>
+	);
+};

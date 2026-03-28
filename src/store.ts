@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import todosReducer from './feature/todoList';
 import formReducer from './feature/formSlice';
+import themeReducer from './feature/themeSlice';
 import { loadFromLocalStorage, saveToLocalStorage } from './helpers/storage';
 
 
@@ -8,6 +9,7 @@ export const store = configureStore({
 	reducer: {
 		todoList: todosReducer,
     form: formReducer,
+		themeList: themeReducer
 	},
 	preloadedState: loadFromLocalStorage(),
 });
